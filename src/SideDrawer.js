@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Drawer, List, ListItem, ListItemText } from '@mui/material';
 import { ThemeContext } from './ThemeContext';
 
-const SideDrawer = ({ open, onToggleDrawer, variant }) => {
+const SideDrawer = ({ open = true, onToggleDrawer, variant }) => {
   const { setDarkMode } = useContext(ThemeContext);
 
   return (

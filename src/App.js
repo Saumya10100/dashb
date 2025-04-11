@@ -8,8 +8,8 @@ import { ThemeProviderComponent } from './ThemeContext';
 const App = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  const toggleDrawer = (state) => () => {
-    setDrawerOpen(state);
+  const toggleDrawer = () => {
+    setDrawerOpen((prevState) => !prevState);
   };
 
   const isSmallScreen = useMediaQuery('(max-width:600px)');
@@ -21,7 +21,7 @@ const App = () => {
 
       <Box display="flex">
         <SideDrawer
-          open={!isSmallScreen || drawerOpen}
+          open={drawerOpen}
           onToggleDrawer={toggleDrawer}
           variant={isSmallScreen ? 'temporary' : 'persistent'}
         />
@@ -31,7 +31,8 @@ const App = () => {
           style={{
             flexGrow: 1,
             marginTop: '64px',
-            marginLeft: isSmallScreen ? 0 : '240px',
+            marginLeft: drawerOpen && !isSmallScreen ? '240px' : 0,
+            transition: 'margin-left 0.3s ease',
           }}
         >
           <MainContent />

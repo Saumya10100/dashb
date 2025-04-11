@@ -7,7 +7,7 @@ const NavigationBar = ({ toggleDrawer }) => {
     <AppBar position="fixed" style={{ height: '64px', backgroundColor: '#161a33' }}>
       <Toolbar style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Box display="flex" alignItems="center">
-          <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
+          <IconButton edge="start" color="inherit" aria-label="menu" onClick={toggleDrawer}>
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" style={{ marginLeft: '10px' }}>
