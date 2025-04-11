@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { CssBaseline, Box, useMediaQuery } from '@mui/material';
+import NavigationBar from './NavigationBar';
+import SideDrawer from './SideDrawer';
+import MainContent from './MainContent';
+import { ThemeProviderComponent } from './ThemeContext';
 
-function App() {
+const App = () => {
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const toggleDrawer = (state) => () => {
+    setDrawerOpen(state);
+  };
+
+  const isSmallScreen = useMediaQuery('(max-width:600px)');
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <ThemeProviderComponent>
+      <CssBaseline />
+      <NavigationBar toggleDrawer={toggleDrawer} />
+
+      <Box display="flex">
+        <SideDrawer
+          open={!isSmallScreen || drawerOpen}
+          onToggleDrawer={toggleDrawer}
+          variant={isSmallScreen ? 'temporary' : 'persistent'}
+        />
+
+        <Box
+          component="main"
+          style={{
+            flexGrow: 1,
+            marginTop: '64px',
+            marginLeft: isSmallScreen ? 0 : '240px',
+          }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <MainContent />
+        </Box>
+      </Box>
+    </ThemeProviderComponent>
   );
-}
+};
 
 export default App;
